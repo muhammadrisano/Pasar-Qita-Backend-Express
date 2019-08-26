@@ -7,6 +7,10 @@ const cors = require('cors');
 const xssFilter = require('x-xss-protection');
 const logger = require('morgan');
 const userRoute = require('./src/routers/user');
+const marketRoute = require('./src/routers/market');
+const storeRoute = require('./src/routers/store')
+const categoryRoute = require('./src/routers/category')
+const subcategoryRoute = require('./src/routers/subcategory')
 
 app.use(cors());
 app.use(xssFilter());
@@ -18,3 +22,7 @@ app.listen(port, () => {
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/user', userRoute)
+app.use('/market', marketRoute)
+app.use('/store', storeRoute)
+app.use('/category', categoryRoute)
+app.use('/subcategory', subcategoryRoute)

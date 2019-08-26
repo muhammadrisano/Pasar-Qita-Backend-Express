@@ -16,7 +16,7 @@ module.exports = {
         const id_market = req.params.id_market
         marketModels.marketDetail(id_market)
             .then((resultmarket) => {
-                const result = resultpattern
+                const result = resultmarket
                 MiscHelper.response(res, result, 200)
             })
             .catch((err) => {
@@ -30,11 +30,13 @@ module.exports = {
             address,
             longitude,
             latitude,
+            created_at: new Date(),
+            updated_at: new Date()
         }
         marketModels.insertMarket(data)
             .then((resultmarket) => {
                 const result = resultmarket
-                MiscHelper.response(res, result, 200, data)
+                MiscHelper.response(res, result, 200)
             })
             .catch((err) => {
                 console.log(err)
@@ -42,21 +44,36 @@ module.exports = {
 
     },
     updateMarket: (req, res) => {
-        const id_pattern = req.params.id_market
+        const id_market = req.params.id_market
         const { name_market, address, longitude, latitude } = req.body
         const data = {
             name_market,
             address,
             longitude,
-            latitude
+            latitude,
+            updated_at: new Date()
         }
-        marketModels.updateMarket(id_pattern, data)
+        marketModels.updateMarket(id_market, data)
             .then((resultmarket) => {
                 const result = resultmarket
                 MiscHelper.response(res, result, 200)
             })
-
+            .catch((err) => {
+                console.log(err)
+            })
+    },
+    deleteMarket: (req, res) => {
+        const id_market = req.params.id_market
+        marketModels.deleteMarket(id_market)
+            .then((resultmarket) => {
+                const result = resultmarket
+                MiscHelper.response(res, result, 200)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
+
 
 
 

@@ -54,7 +54,7 @@ module.exports = {
             name: req.body.name,
             telp: req.body.telp,
             address: req.body.address,
-            photo: req.body.photo,
+            photo: "",
             role_id: req.body.role_id,
             longitude: req.body.longitude,
             latitude: req.body.latitude,

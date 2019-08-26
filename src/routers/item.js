@@ -5,8 +5,8 @@ const Auth = require('../helpers/auth')
 
 Route
     .all('/*', Auth.authInfo)
-    .get('/', marketController, getMarket)
-    .get('/:id_market', patternController.marketDetail)
+    .get('/', marketController.getMarket)
+    .get('/:id_market', marketController.marketDetail)
     .post('/', marketController.insertMarket)
     .patch('/:id_market', marketController.updateMarket)
     .delete('/:id_market', marketController.deleteMarket)
