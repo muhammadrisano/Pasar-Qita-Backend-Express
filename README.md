@@ -26,3 +26,21 @@ Method : post
 
 * Req.Header ->
 1. authorization = semangat-team-faraday
+
+### Detail User
+Method : get
+(-) http://localhost/user/{id_user}
+
+* Req.Header ->
+1. authorization = semangat-team-faraday
+
+
+### Get All User
+Method : get
+(-) http://localhost/user/
+
+* Req.Header ->
+1. authorization = semangat-team-faraday
+
+
+
