@@ -14,6 +14,37 @@ module.exports = {
                 console.log(error)
             })
     },
+    userDetail: (req, res) => {
+        const id_user = req.params.id_user
+        userModels.userDetail(id_user)
+            .then((resultUser) => {
+                const result = resultUser
+                MiscHelper.response(res, result, 200)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    },
+    updateUser: (req, res) => {
+        const id_user = req.params.id_user
+        const data = {
+            name: req.body.name,
+            telp: req.body.telp,
+            address: req.body.address,
+            photo: req.body.photo,
+            longitude: req.body.longitude,
+            latitude: req.body.latitude,
+            updated_at: new Date()
+        }
+        console.log(data)
+        userModels.updateUser(id_user, data)
+            .then((resultRegister) => {
+                MiscHelper.response(res, resultRegister, 200)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    },
     register: (req, res) => {
         const salt = MiscHelper.generateSalt(18)
         const passwordHash = MiscHelper.setPassword(req.body.password, salt)
@@ -24,15 +55,16 @@ module.exports = {
             telp: req.body.telp,
             address: req.body.address,
             photo: req.body.photo,
+            role_id: req.body.role_id,
             longitude: req.body.longitude,
             latitude: req.body.latitude,
             salt: passwordHash.salt,
             token: "",
-            role_id: 3,
             status: 1,
             created_at: new Date(),
             updated_at: new Date()
         }
+        console.log(data)
         userModels.register(data)
             .then((resultRegister) => {
                 MiscHelper.response(res, resultRegister, 200)
@@ -47,6 +79,7 @@ module.exports = {
         userModels.getByEmail(email)
             .then((result) => {
                 const dataUser = result[0]
+                console.log(dataUser)
                 const usePassword = MiscHelper.setPassword(password, dataUser.salt).passwordHash
                 if (usePassword === dataUser.password) {
                     dataUser.token = jwt.sign({
@@ -59,7 +92,7 @@ module.exports = {
                     return MiscHelper.response(res, null, 403, 'Wrong passwrod !')
                 }
             })
-            .cach((error) => {
+            .catch((error) => {
                 console.log(error)
             })
     },
