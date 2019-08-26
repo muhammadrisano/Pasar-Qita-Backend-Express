@@ -2,6 +2,7 @@
 ### Use
 #### Register
 (-) http://localhost/user/register
+
 *Req.body ->
 1. email
 2. password
