@@ -11,8 +11,9 @@ Method : post
 4. telp
 5. address
 6. photo
-7. longitude
-8. latitude
+7. role_id
+8. longitude
+9. latitude
 * Req.Header ->
 1. authorization = semangat-team-faraday
 
