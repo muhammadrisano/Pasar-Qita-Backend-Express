@@ -18,7 +18,7 @@ Method : post
 
 #### Login
 Method : post
-(-) http://localhost/user/login
+(-) http://localhost:4000/user/login
 
 *Req.body ->
 1. email
@@ -27,17 +27,25 @@ Method : post
 * Req.Header ->
 1. authorization = semangat-team-faraday
 
-### Detail User
+#### Detail User
 Method : get
-(-) http://localhost/user/{id_user}
+(-) http://localhost:4000/user/{id_user}
 
 * Req.Header ->
 1. authorization = semangat-team-faraday
 
 
-### Get All User
+#### Get All User
 Method : get
-(-) http://localhost/user/
+(-) http://localhost:4000/user/
+
+* Req.Header ->
+1. authorization = semangat-team-faraday
+
+
+#### Delete User
+Method : delete
+(-) http://localhost:4000/user/1
 
 * Req.Header ->
 1. authorization = semangat-team-faraday
