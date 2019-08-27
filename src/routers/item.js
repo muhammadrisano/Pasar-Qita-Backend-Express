@@ -1,14 +1,14 @@
 const express = require('express');
 const Route = express.Router();
-const marketController = require('../controllers/market')
+const itemController = require('../controllers/item')
 const Auth = require('../helpers/auth')
 
 Route
     .all('/*', Auth.authInfo)
-    .get('/', marketController.getMarket)
-    .get('/:id_market', marketController.marketDetail)
-    .post('/', marketController.insertMarket)
-    .patch('/:id_market', marketController.updateMarket)
-    .delete('/:id_market', marketController.deleteMarket)
+    .get('/', itemController.getItem)
+    .get('/:id_item', itemController.itemDetail)
+    .post('/', itemController.insertItem)
+    .patch('/:id_item', itemController.updateItem)
+    .delete('/:id_item', itemController.deleteItem)
 
 module.exports = Route
