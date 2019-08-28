@@ -1,11 +1,15 @@
 const categoryModels = require('../models/category')
 const MiscHelper = require('../helpers/helpers')
+const redis = require('redis')
+const REDIS_PORT = process.env.PORT_REDIST || 6379;
+const client = redis.createClient(REDIS_PORT)
 
 module.exports = {
     getCategory: (req, res) => {
         categoryModels.getCategory()
             .then((resultcategory) => {
                 const result = resultcategory
+                client.setex('getallcategory', 3600, JSON.stringify(result))
                 MiscHelper.response(res, result, 200)
             })
             .catch((err) => {

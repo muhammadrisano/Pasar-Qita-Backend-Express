@@ -54,7 +54,7 @@ module.exports = {
             name: req.body.name,
             telp: req.body.telp,
             address: req.body.address,
-            photo: "",
+            photo: "https://res.cloudinary.com/dfezrynjl/image/upload/v1566978174/profile_ibj8zy.png",
             role_id: req.body.role_id,
             longitude: req.body.longitude,
             latitude: req.body.latitude,
