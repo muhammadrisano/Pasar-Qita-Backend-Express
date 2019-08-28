@@ -24,6 +24,50 @@ module.exports = {
             })
         })
     },
+    getByUser: (id_user) => {
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT cart.*, user.name, item.name_item, item.image, item.description, item.price  FROM cart INNER JOIN user ON cart.id_user = user.id_user INNER JOIN item ON cart.id_item = item.id_item WHERE cart.status = 1 AND cart.id_user= ?", id_user, (err, result) => {
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
+    checkoutUser: (id_user) => {
+        return new Promise((resolve, reject) => {
+            connection.query("UPDATE cart SET status = 0 WHERE id_user = ?", id_user, (err, result) => {
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
+    quantityPlus: (id_cart) => {
+        return new Promise((resolve, reject) => {
+            connection.query("UPDATE cart SET quantity = quantity + 1 WHERE id_cart = ?", id_cart, (err, result) => {
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
+    quantityMinus: (id_cart) => {
+        return new Promise((resolve, reject) => {
+            connection.query("UPDATE cart SET quantity = quantity - 1 WHERE id_cart = ?", id_cart, (err, result) => {
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
     insertCart: (data) => {
         return new Promise((resolve, reject) => {
             connection.query("INSERT INTO cart SET ?", data, (err, result) => {

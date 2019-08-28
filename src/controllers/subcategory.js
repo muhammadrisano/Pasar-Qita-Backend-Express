@@ -40,6 +40,17 @@ module.exports = {
             })
 
     },
+    getbycategory: (req, res) => {
+        const id_category = req.params.id_category
+        subcategoryModels.getbycategory(id_category)
+            .then((resultsubcategory) => {
+                const result = resultsubcategory
+                MiscHelper.response(res, result, 200)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    },
     updateSubcategory: (req, res) => {
         const id_subcategory = req.params.id_subcategory
         const { name_subcategory, icon_subcategory, id_category } = req.body

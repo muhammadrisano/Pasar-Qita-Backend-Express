@@ -7,6 +7,8 @@ Route
     .all('/*', Auth.authInfo)
     .get('/', itemController.getItem)
     .get('/:id_item', itemController.itemDetail)
+    .get('/bysubcategory/:id_subcategory', itemController.getBySubcategory)
+    .get('/bystore/:id_store', itemController.getByStore)
     .post('/', itemController.insertItem)
     .patch('/:id_item', itemController.updateItem)
     .delete('/:id_item', itemController.deleteItem)

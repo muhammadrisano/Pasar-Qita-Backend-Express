@@ -23,6 +23,50 @@ module.exports = {
                 console.log(err)
             })
     },
+    getByUser: (req, res) => {
+        const id_user = req.params.id_user
+        cartModels.getByUser(id_user)
+            .then((resultcart) => {
+                const result = resultcart
+                MiscHelper.response(res, result, 200)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    },
+    checkoutUser: (req, res) => {
+        const id_user = req.params.id_user
+        cartModels.checkoutUser(id_user)
+            .then((resultcart) => {
+                const result = resultcart
+                MiscHelper.response(res, result, 200)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    },
+    quantityPlus: (req, res) => {
+        const id_cart = req.params.id_cart
+        cartModels.quantityPlus(id_cart)
+            .then((resultcart) => {
+                const result = resultcart
+                MiscHelper.response(res, result, 200)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    },
+    quantityMinus: (req, res) => {
+        const id_cart = req.params.id_cart
+        cartModels.quantityMinus(id_cart)
+            .then((resultcart) => {
+                const result = resultcart
+                MiscHelper.response(res, result, 200)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    },
     insertCart: (req, res) => {
         const { id_item, quantity, id_user, ket, status } = req.body
         const data = {

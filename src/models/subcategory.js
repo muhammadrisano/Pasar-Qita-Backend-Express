@@ -13,9 +13,20 @@ module.exports = {
             })
         })
     },
+    getbycategory: (id_category) => {
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT subcategory.*, category.name_category FROM subcategory INNER JOIN category ON subcategory.id_category = category.id_category WHERE subcategory.id_category =?", id_category, (err, result) => {
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
     subcategoryDetail: (id_subcategory) => {
         return new Promise((resolve, reject) => {
-            connection.query("SELECT * FROM subcategory WHERE id_subcategory =?", id_subcategory, (err, result) => {
+            connection.query("SELECT subcategory.*, category.name_category FROM subcategory INNER JOIN category ON subcategory.id_category = category.id_category WHERE id_subcategory =?", id_subcategory, (err, result) => {
                 if (!err) {
                     resolve(result)
                 } else {

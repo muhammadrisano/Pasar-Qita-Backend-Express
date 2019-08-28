@@ -35,6 +35,29 @@ module.exports = {
             })
         })
     },
+    getByStore: (id_store) => {
+        console.log(id_store)
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT item.*, subcategory.name_subcategory, category.name_category FROM item INNER JOIN subcategory ON item.id_subcategory = subcategory.id_subcategory INNER JOIN category ON subcategory.id_category = category.id_category WHERE item.id_store = ?", id_store, (err, result) => {
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
+    getBySubcategory: (id_subcategory) => {
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT item.*, subcategory.name_subcategory, category.name_category FROM item INNER JOIN subcategory ON item.id_subcategory = subcategory.id_subcategory INNER JOIN category ON subcategory.id_category = category.id_category WHERE item.id_subcategory = ?", id_subcategory, (err, result) => {
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
     deleteItem: (id_item) => {
         return new Promise((resolve, reject) => {
             connection.query("DELETE FROM item WHERE id_item = ?", id_item, (err, result) => {

@@ -24,6 +24,28 @@ module.exports = {
             })
         })
     },
+    getByMarket: (id_market) => {
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT store.*, market.name_market, market.address, market.longitude, market.latitude, user.name, user.telp FROM store INNER JOIN market ON store.id_market = market.id_market INNER JOIN user ON store.shop_selector = user.id_user WHERE store.id_market = ?", id_market, (err, result) => {
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
+    getByUser: (id_user) => {
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT store.*, market.name_market, market.address, market.longitude, market.latitude, user.name, user.telp FROM store INNER JOIN market ON store.id_market = market.id_market INNER JOIN user ON store.shop_selector = user.id_user WHERE store.shop_selector = ?", id_user, (err, result) => {
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
     insertStore: (data) => {
         return new Promise((resolve, reject) => {
             connection.query("INSERT INTO store SET ?", data, (err, result) => {
