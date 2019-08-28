@@ -11,6 +11,9 @@ const marketRoute = require('./src/routers/market');
 const storeRoute = require('./src/routers/store')
 const categoryRoute = require('./src/routers/category')
 const subcategoryRoute = require('./src/routers/subcategory')
+const itemRoute = require('./src/routers/item')
+const cartRoute = require('./src/routers/cart')
+const paymentRoute = require('./src/routers/payment')
 
 app.use(cors());
 app.use(xssFilter());
@@ -26,3 +29,6 @@ app.use('/market', marketRoute)
 app.use('/store', storeRoute)
 app.use('/category', categoryRoute)
 app.use('/subcategory', subcategoryRoute)
+app.use('/item', itemRoute)
+app.use('/cart', cartRoute)
+app.use('/payment', paymentRoute)
