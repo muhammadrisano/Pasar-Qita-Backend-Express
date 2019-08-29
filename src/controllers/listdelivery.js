@@ -7,7 +7,7 @@ const client = redis.createClient(REDIS_PORT)
 module.exports = {
     getListdelivery: (req, res) => {
         listdeliveryModels.getListdelivery()
-            .then((resultListdelivery) => {
+            .then((resultlistdelivery) => {
                 const result = resultlistdelivery
                 MiscHelper.response(res, result, 200)
             })
