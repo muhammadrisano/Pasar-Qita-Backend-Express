@@ -1,6 +1,6 @@
 const storeModels = require('../models/store')
 const MiscHelper = require('../helpers/helpers')
-
+const cloudinary = require('cloudinary')
 module.exports = {
     getStore: (req, res) => {
         storeModels.getStore()
@@ -67,14 +67,27 @@ module.exports = {
             })
 
     },
-    updateStore: (req, res) => {
+    updateStore: async (req, res) => {
+        let path = req.file.path
         const id_store = req.params.id_store
-        const { name_store, id_market, shop_selector, photo } = req.body
+        let geturl = async (req) => {
+            cloudinary.config({
+                cloud_name: process.env.CLOUD_NAME,
+                api_key: process.env.API_KEY,
+                api_secret: process.env.API_SECRET
+            })
+
+            let dataCloudinary
+            await cloudinary.uploader.upload(path, (result) => {
+                const fs = require('fs')
+                fs.unlinkSync(path)
+                dataCloudinary = result.url
+            })
+
+            return dataCloudinary
+        }
         const data = {
-            name_store,
-            id_market,
-            shop_selector,
-            photo,
+            photo: await geturl(),
             updated_at: new Date()
         }
         storeModels.updateStore(id_store, data)
