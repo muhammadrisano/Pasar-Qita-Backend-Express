@@ -80,6 +80,17 @@ module.exports = {
             })
         })
     },
+    nullCart: (id_user) => {
+        return new Promise((resolve, reject) => {
+            connection.query("UPDATE payment SET status = 0 WHERE id_user = ?", id_user, (err, result) => {
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
     getCartByUser: (id_user) => {
         return new Promise((resolve, reject) => {
             connection.query("SELECT cart.*, item.name_item, item.price FROM cart INNER JOIN item ON cart.id_item = item.id_item WHERE status = 1 AND id_user =?", id_user, (err, result) => {
