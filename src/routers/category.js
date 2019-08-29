@@ -7,8 +7,8 @@ const Redis = require('../helpers/redis')
 
 Route
     .all('/*', Auth.authInfo)
-    .get('/', Auth.accesstoken, Redis.cacheGetAllCategory, categoryController.getCategory)
-    .get('/:id_category', Auth.accesstoken, Redis.clearGetAllCategory, categoryController.categoryDetail)
+    .get('/', Redis.cacheGetAllCategory, categoryController.getCategory)
+    .get('/:id_category', Redis.clearGetAllCategory, categoryController.categoryDetail)
     .post('/', Redis.clearGetAllCategory, categoryController.insertCategory)
     .patch('/:id_category', categoryController.updateCategory)
     .delete('/:id_category', categoryController.deleteCategory)
