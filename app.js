@@ -14,6 +14,7 @@ const subcategoryRoute = require('./src/routers/subcategory')
 const itemRoute = require('./src/routers/item')
 const cartRoute = require('./src/routers/cart')
 const paymentRoute = require('./src/routers/payment')
+const listdeliveryRoute = require('./src/routers/listdelivery')
 
 app.use(cors());
 app.use(xssFilter());
@@ -32,3 +33,4 @@ app.use('/subcategory', subcategoryRoute)
 app.use('/item', itemRoute)
 app.use('/cart', cartRoute)
 app.use('/payment', paymentRoute)
+app.use('/listdelivery', listdeliveryRoute)
