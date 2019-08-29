@@ -1,6 +1,7 @@
 const userModels = require('../models/user')
 const MiscHelper = require('../helpers/helpers')
 const jwt = require('jsonwebtoken');
+const cloudinary = require('cloudinary')
 
 module.exports = {
     getUser: (req, res) => {
@@ -25,13 +26,33 @@ module.exports = {
                 console.log(error)
             })
     },
-    updateUser: (req, res) => {
+    updateUser: async (req, res) => {
+        let path = req.file.path
+        console.log(req.body)
         const id_user = req.params.id_user
+
+        let geturl = async (req) => {
+            cloudinary.config({
+                cloud_name: process.env.CLOUD_NAME,
+                api_key: process.env.API_KEY,
+                api_secret: process.env.API_SECRET
+            })
+
+            let dataCloudinary
+            await cloudinary.uploader.upload(path, (result) => {
+                const fs = require('fs')
+                fs.unlinkSync(path)
+                dataCloudinary = result.url
+            })
+
+            return dataCloudinary
+        }
+
         const data = {
             name: req.body.name,
             telp: req.body.telp,
             address: req.body.address,
-            photo: req.body.photo,
+            photo: await geturl(),
             longitude: req.body.longitude,
             latitude: req.body.latitude,
             updated_at: new Date()

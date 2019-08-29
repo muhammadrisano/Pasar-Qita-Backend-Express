@@ -1,5 +1,6 @@
 const itemModels = require('../models/item')
 const MiscHelper = require('../helpers/helpers')
+const cloudinary = require('cloudinary')
 
 module.exports = {
     getItem: (req, res) => {
@@ -45,11 +46,28 @@ module.exports = {
                 console.log(err)
             })
     },
-    insertItem: (req, res) => {
-        const { name_item, image, description, price, id_subcategory, id_store } = req.body
+    insertItem: async (req, res) => {
+        let path = req.file.path
+        let geturl = async (req) => {
+            cloudinary.config({
+                cloud_name: process.env.CLOUD_NAME,
+                api_key: process.env.API_KEY,
+                api_secret: process.env.API_SECRET
+            })
+
+            let dataCloudinary
+            await cloudinary.uploader.upload(path, (result) => {
+                const fs = require('fs')
+                fs.unlinkSync(path)
+                dataCloudinary = result.url
+            })
+
+            return dataCloudinary
+        }
+        const { name_item, description, price, id_subcategory, id_store } = req.body
         const data = {
             name_item,
-            image,
+            image: await geturl(),
             description,
             price,
             id_subcategory,
