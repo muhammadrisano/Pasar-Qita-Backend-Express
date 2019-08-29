@@ -15,7 +15,7 @@ module.exports = {
     },
     itemDetail: (id_item) => {
         return new Promise((resolve, reject) => {
-            connection.query("SELECT item.*, subcategory.name_subcategory, category.name_category FROM item INNER JOIN subcategory ON item.id_subcategory = subcategory.id_subcategory INNER JOIN category ON subcategory.id_category = category.id_category WHERE id_item = ?", id_item, (err, result) => {
+            connection.query("SELECT item.*,store.name_store, store.shop_selector, subcategory.name_subcategory, category.name_category FROM item INNER JOIN subcategory ON item.id_subcategory = subcategory.id_subcategory INNER JOIN category ON subcategory.id_category = category.id_category INNER JOIN store ON item.id_store = store.id_store WHERE id_item = ?", id_item, (err, result) => {
                 if (!err) {
                     resolve(result)
                 } else {
