@@ -93,7 +93,7 @@ module.exports = {
     },
     getByStatus: (status) => {
         return new Promise((resolve, reject) => {
-            connection.query("SELECT * FROM payment WHERE status = ?", status, (err, result) => {
+            connection.query("SELECT payment.*, user.email, user.name, delivery.name_delivery FROM payment INNER JOIN user ON payment.id_user = user.id_user INNER JOIN delivery ON payment.id_delivery = delivery.id_delivery WHERE payment.status = ?", status, (err, result) => {
                 if (!err) {
                     resolve(result)
                 } else {

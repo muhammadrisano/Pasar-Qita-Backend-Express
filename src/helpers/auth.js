@@ -1,6 +1,6 @@
+require('dotenv').config()
 const jwt = require('jsonwebtoken');
 const MiscHelper = require('../helpers/helpers')
-
 const allowedAccess = process.env.REQUEST_HEADERS
 
 module.exports = {
