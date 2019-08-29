@@ -16,7 +16,7 @@ module.exports = {
         const id_subcategory = req.params.id_subcategory
         subcategoryModels.subcategoryDetail(id_subcategory)
             .then((resultsubcategory) => {
-                const result = resultsubcategory
+                const result = resultsubcategory[0]
                 MiscHelper.response(res, result, 200)
             })
             .catch((err) => {
