@@ -16,7 +16,7 @@ module.exports = {
         const id_cart = req.params.id_cart
         cartModels.cartDetail(id_cart)
             .then((resultcart) => {
-                const result = resultcart
+                const result = resultcart[0]
                 MiscHelper.response(res, result, 200)
             })
             .catch((err) => {
@@ -69,6 +69,7 @@ module.exports = {
     },
     insertCart: (req, res) => {
         const { id_item, id_user } = req.body
+
         const data = {
             id_item,
             quantity: 1,
@@ -78,14 +79,27 @@ module.exports = {
             created_at: new Date(),
             updated_at: new Date()
         }
-        cartModels.insertCart(data)
+        cartModels.checkCart(id_item, id_user)
             .then((resultcart) => {
                 const result = resultcart
-                MiscHelper.response(res, result, 200)
+                if (result.length < 1) {
+                    cartModels.insertCart(data)
+                        .then((resultcart) => {
+                            const result = resultcart
+                            MiscHelper.response(res, result, 200)
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
+
+                } else {
+                    MiscHelper.response(res, null, 403, "data sudah ada")
+                }
             })
             .catch((err) => {
                 console.log(err)
             })
+
 
     },
     updateCart: (req, res) => {
