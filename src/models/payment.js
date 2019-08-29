@@ -24,6 +24,18 @@ module.exports = {
             })
         })
     },
+    deliveryDetail: (id_delivery) => {
+        console.log(id_delivery)
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT * FROM delivery WHERE id_delivery =?", id_delivery, (err, result) => {
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
     getByUser: (id_user) => {
         return new Promise((resolve, reject) => {
             connection.query("SELECT * FROM payment WHERE status = 0 AND id_user =?", id_user, (err, result) => {

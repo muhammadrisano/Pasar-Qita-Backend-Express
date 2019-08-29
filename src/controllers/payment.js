@@ -24,12 +24,12 @@ module.exports = {
             })
     },
     insertPayment: (req, res) => {
-        const { id_cart, total_payment, name_item, shipping_method, payment_method, id_user } = req.body
+        const { id_cart, total_price, name_item, id_delivery, payment_method, id_user } = req.body
         const data = {
             id_cart,
-            total_payment,
+            total_price,
             name_item,
-            shipping_method,
+            id_delivery,
             payment_method,
             id_user,
             status: 0,
@@ -58,20 +58,55 @@ module.exports = {
     },
     checkoutPayment: (req, res) => {
         const id_payment = req.params.id_payment
-        const { shipping_method, payment_method } = req.body
+        const { id_delivery, payment_method } = req.body
         const data = {
-            shipping_method,
+            id_delivery,
             payment_method,
             status: 0
         }
-        paymentModels.checkoutPayment(id_payment, data)
+        paymentModels.paymentDetail(id_payment)
             .then((resultpayment) => {
-                const result = resultpayment
-                MiscHelper.response(res, result, 200)
+                const result = resultpayment[0]
+                let total_price = result.total_price
+                console.log(result)
+                if (result.status === 9) {
+                    paymentModels.deliveryDetail(id_delivery)
+                        .then((resultpayment) => {
+                            const result = resultpayment[0]
+                            const cost = result.cost
+                            data.total_payment = cost + total_price
+                            console.log(data)
+                            paymentModels.checkoutPayment(id_payment, data)
+                                .then((resultpayment) => {
+                                    const result = resultpayment
+                                    MiscHelper.response(res, result, 200)
+                                })
+                                .catch((err) => {
+                                    console.log(err)
+                                })
+
+
+                        })
+                        .catch((err) => {
+                            console.log(err)
+
+                        })
+                } else {
+                    console.log("data udah di cekout ")
+                    MiscHelper.response(res, null, 403, "Error data sudah di Checkout")
+                }
+
+
+                // MiscHelper.response(res, result, 200)
             })
             .catch((err) => {
                 console.log(err)
             })
+
+
+
+
+
     },
     updateStatus: (req, res) => {
         const id_payment = req.params.id_payment
@@ -106,9 +141,10 @@ module.exports = {
                 let harga = 0
                 let id_cart = []
                 let name_item = []
+                let quantity = []
                 result.map((item) => {
                     id_cart.push(item.id_cart)
-                    name_item.push(item.name_item)
+                    name_item.push(item.quantity + 'x ' + item.name_item)
                     harga += item.quantity * item.price
                 })
                 console.log(harga)
@@ -117,11 +153,12 @@ module.exports = {
                 const data = {
                     id_cart: id_cart.join(" "),
                     name_item: name_item.join(", "),
-                    total_payment: harga,
-                    shipping_method: "",
+                    total_price: harga,
+                    id_delivery: 0,
                     payment_method: "",
                     id_user: id_user,
                     status: 9,
+                    total_payment: 0,
                     created_at: new Date(),
                     updated_at: new Date()
                 }
@@ -152,12 +189,12 @@ module.exports = {
     },
     updatePayment: (req, res) => {
         const id_payment = req.params.id_payment
-        const { id_cart, name_item, total_payment, shipping_method, payment_method, id_user, status } = req.body
+        const { id_cart, name_item, total_price, id_delivery, payment_method, id_user, status } = req.body
         const data = {
             id_cart,
             name_item,
-            total_payment,
-            shipping_method,
+            total_price,
+            id_delivery,
             payment_method,
             id_user,
             status,
