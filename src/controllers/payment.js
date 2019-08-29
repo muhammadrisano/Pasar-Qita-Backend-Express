@@ -68,6 +68,7 @@ module.exports = {
             .then((resultpayment) => {
                 const result = resultpayment[0]
                 let total_price = result.total_price
+                let id_user = result.id_user
                 console.log(result)
                 if (result.status === 9) {
                     paymentModels.deliveryDetail(id_delivery)
@@ -79,13 +80,12 @@ module.exports = {
                             paymentModels.checkoutPayment(id_payment, data)
                                 .then((resultpayment) => {
                                     const result = resultpayment
+                                    paymentModels.nullCart(id_user)
                                     MiscHelper.response(res, result, 200)
                                 })
                                 .catch((err) => {
                                     console.log(err)
                                 })
-
-
                         })
                         .catch((err) => {
                             console.log(err)
