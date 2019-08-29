@@ -6,7 +6,7 @@ const cloudinary = require('cloudinary')
 module.exports = {
     getUser: (req, res) => {
         const search = req.query.search;
-        userModels.getUser(seacrh)
+        userModels.getUser(search)
             .then((resultUser) => {
                 const result = resultUser
                 MiscHelper.response(res, result, 200)
