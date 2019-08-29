@@ -16,7 +16,7 @@ module.exports = {
         const id_market = req.params.id_market
         marketModels.marketDetail(id_market)
             .then((resultmarket) => {
-                const result = resultmarket
+                const result = resultmarket[0]
                 MiscHelper.response(res, result, 200)
             })
             .catch((err) => {
