@@ -82,6 +82,7 @@ module.exports = {
             salt: passwordHash.salt,
             token: "",
             status: 1,
+            id_firebase: req.body.id_firebase,
             created_at: new Date(),
             updated_at: new Date()
         }
