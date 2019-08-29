@@ -17,7 +17,7 @@ module.exports = {
         const id_item = req.params.id_item
         itemModels.itemDetail(id_item)
             .then((resultitem) => {
-                const result = resultitem
+                const result = resultitem[0]
                 MiscHelper.response(res, result, 200)
             })
             .catch((err) => {

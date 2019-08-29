@@ -28,7 +28,7 @@ module.exports = {
         console.log(id_market)
         storeModels.getByMarket(id_market)
             .then((resultsubcategory) => {
-                const result = resultsubcategory
+                const result = resultsubcategory[0]
                 MiscHelper.response(res, result, 200)
             })
             .catch((err) => {

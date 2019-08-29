@@ -16,7 +16,7 @@ module.exports = {
         const id_payment = req.params.id_payment
         paymentModels.paymentDetail(id_payment)
             .then((resultpayment) => {
-                const result = resultpayment
+                const result = resultpayment[0]
                 MiscHelper.response(res, result, 200)
             })
             .catch((err) => {

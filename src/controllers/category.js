@@ -20,7 +20,7 @@ module.exports = {
         const id_category = req.params.id_category
         categoryModels.categoryDetail(id_category)
             .then((resultcategory) => {
-                const result = resultcategory
+                const result = resultcategory[0]
                 MiscHelper.response(res, result, 200)
             })
             .catch((err) => {

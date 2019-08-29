@@ -19,7 +19,7 @@ module.exports = {
         const id_user = req.params.id_user
         userModels.userDetail(id_user)
             .then((resultUser) => {
-                const result = resultUser
+                const result = resultUser[0]
                 MiscHelper.response(res, result, 200)
             })
             .catch((error) => {
