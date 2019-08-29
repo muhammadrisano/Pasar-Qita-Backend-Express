@@ -27,10 +27,10 @@ module.exports = {
             })
     },
     insertListdelivery: (req, res) => {
-        const { name_listdelivery, icon_listdelivery } = req.body
+        const { driver, id_payment } = req.body
         const data = {
-            name_listdelivery,
-            icon_listdelivery,
+            driver,
+            id_payment,
         }
         listdeliveryModels.insertListdelivery(data)
             .then((resultlistdelivery) => {
