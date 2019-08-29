@@ -68,13 +68,13 @@ module.exports = {
             })
     },
     insertCart: (req, res) => {
-        const { id_item, quantity, id_user, ket, status } = req.body
+        const { id_item, id_user } = req.body
         const data = {
             id_item,
-            quantity,
+            quantity: 1,
             id_user,
-            ket,
-            status,
+            ket: "",
+            status: 1,
             created_at: new Date(),
             updated_at: new Date()
         }
