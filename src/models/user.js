@@ -13,7 +13,7 @@ module.exports = {
                     }
                 })
             } else {
-                connection.query("SELECT * FROM user", (err, result) => {
+                connection.query("SELECT * FROM user ORDER BY id_firebase DESC", (err, result) => {
                     if (!err) {
                         resolve(result)
                     } else {
