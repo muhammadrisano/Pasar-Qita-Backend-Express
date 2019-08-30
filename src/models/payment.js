@@ -80,9 +80,9 @@ module.exports = {
             })
         })
     },
-    nullCart: (id_user) => {
+    nullCart: (id_user, dataup) => {
         return new Promise((resolve, reject) => {
-            connection.query("UPDATE payment SET status = 0 WHERE id_user = ?", id_user, (err, result) => {
+            connection.query("UPDATE cart SET ? WHERE id_user = ?", [dataup, id_user], (err, result) => {
                 if (!err) {
                     resolve(result)
                 } else {
