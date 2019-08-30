@@ -19,6 +19,7 @@ const upload = multer({ storage: storage })
 Route
     .all('/*', Auth.authInfo)
     .get('/', userController.getUser)
+    .get('/roleid/:role_id', userController.byRoleid)
     .get('/:id_user', userController.userDetail)
     .post('/register', userController.register)
     .post('/login', userController.login)

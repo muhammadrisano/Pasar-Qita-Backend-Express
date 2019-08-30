@@ -24,6 +24,17 @@ module.exports = {
 
         })
     },
+    byRoleid: (role_id) => {
+        return new Promise((resolve, reject) => {
+            connection.query('SELECT * FROM user WHERE role_id = ?', role_id, (err, result) => {
+                if (!err) {
+                    resolve(result)
+                } else {
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
     register: (data) => {
         return new Promise((resolve, reject) => {
             connection.query('INSERT INTO user SET ?', data, (err, result) => {
