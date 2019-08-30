@@ -110,11 +110,6 @@ module.exports = {
             .catch((err) => {
                 console.log(err)
             })
-
-
-
-
-
     },
     updateStatus: (req, res) => {
         const id_payment = req.params.id_payment
