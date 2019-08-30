@@ -48,12 +48,13 @@ module.exports = {
             })
     },
     insertStore: (req, res) => {
-        const { name_store, id_market, shop_selector } = req.body
+        const { name_store, id_market, shop_selector, id_firebase } = req.body
         const data = {
             name_store,
             id_market,
             shop_selector,
             photo: "https://res.cloudinary.com/dfezrynjl/image/upload/v1566981333/store_sxdrwz.png",
+            id_firebase: id_firebase,
             created_at: new Date(),
             updated_at: new Date()
         }
