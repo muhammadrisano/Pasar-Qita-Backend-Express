@@ -25,17 +25,13 @@ DB_HOST="Your_Host"
 DB_USER="Your_Username"
 DB_PASSWORD="Your_Password"
 DB_NAME="Your_Table"
-
 SERVER_PORT=4000
-
-
 SECRET_KEY = "secret_key"
 REQUEST_HEADERS = "request_headers"
-
 CLOUD_NAME ="cloud_name_you"
 API_KEY="api_key_cloudinary_you"
 API_SECRET="api_secret_cloadinary_you"
-
+```
 
 
 ```
