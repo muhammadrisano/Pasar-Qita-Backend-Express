@@ -79,9 +79,17 @@ module.exports = {
                             console.log(data)
                             paymentModels.checkoutPayment(id_payment, data)
                                 .then((resultpayment) => {
-                                    const result = resultpayment
-                                    paymentModels.nullCart(id_user)
-                                    MiscHelper.response(res, result, 200)
+                                    dataup = {
+                                        status: 0
+                                    }
+                                    paymentModels.nullCart(id_user, dataup)
+                                        .then((resultpayment) => {
+                                            const result = resultpayment
+                                            MiscHelper.response(res, result, 200)
+                                        })
+                                        .catch((err) => {
+                                            console.log(err)
+                                        })
                                 })
                                 .catch((err) => {
                                     console.log(err)
