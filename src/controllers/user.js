@@ -15,6 +15,17 @@ module.exports = {
                 console.log(error)
             })
     },
+    byRoleid: (req, res) => {
+        const role_id = req.params.role_id;
+        userModels.byRoleid(role_id)
+            .then((resultUser) => {
+                const result = resultUser
+                MiscHelper.response(res, result, 200)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    },
     userDetail: (req, res) => {
         const id_user = req.params.id_user
         userModels.userDetail(id_user)
