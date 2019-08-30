@@ -26,7 +26,7 @@ module.exports = {
     },
     byRoleid: (role_id) => {
         return new Promise((resolve, reject) => {
-            connection.query('SELECT * FROM user WHERE role_id = ?', role_id, (err, result) => {
+            connection.query('SELECT * FROM user WHERE role_id = ? ORDER BY id_firebase DESC', role_id, (err, result) => {
                 if (!err) {
                     resolve(result)
                 } else {
